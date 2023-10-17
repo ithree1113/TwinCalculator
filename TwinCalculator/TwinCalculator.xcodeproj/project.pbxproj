@@ -9,20 +9,22 @@
 /* Begin PBXBuildFile section */
 		0419CD022AD91B4B0047BA9D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0419CD012AD91B4B0047BA9D /* AppDelegate.swift */; };
 		0419CD042AD91B4B0047BA9D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0419CD032AD91B4B0047BA9D /* SceneDelegate.swift */; };
-		0419CD062AD91B4B0047BA9D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0419CD052AD91B4B0047BA9D /* ViewController.swift */; };
 		0419CD0B2AD91B530047BA9D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0419CD0A2AD91B530047BA9D /* Assets.xcassets */; };
 		0419CD0E2AD91B530047BA9D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0419CD0C2AD91B530047BA9D /* LaunchScreen.storyboard */; };
 		0419CD172AD9276D0047BA9D /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 0419CD162AD9276D0047BA9D /* SnapKit */; };
+		0419CD282ADE2AC50047BA9D /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0419CD272ADE2AC50047BA9D /* ContainerViewController.swift */; };
+		0419CD2A2ADE2CC80047BA9D /* CalculatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0419CD292ADE2CC80047BA9D /* CalculatorViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0419CCFE2AD91B4B0047BA9D /* TwinCalculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TwinCalculator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0419CD012AD91B4B0047BA9D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0419CD032AD91B4B0047BA9D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		0419CD052AD91B4B0047BA9D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		0419CD0A2AD91B530047BA9D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0419CD0D2AD91B530047BA9D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0419CD0F2AD91B530047BA9D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0419CD272ADE2AC50047BA9D /* ContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
+		0419CD292ADE2CC80047BA9D /* CalculatorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,13 +59,22 @@
 			isa = PBXGroup;
 			children = (
 				0419CD012AD91B4B0047BA9D /* AppDelegate.swift */,
-				0419CD032AD91B4B0047BA9D /* SceneDelegate.swift */,
-				0419CD052AD91B4B0047BA9D /* ViewController.swift */,
 				0419CD0A2AD91B530047BA9D /* Assets.xcassets */,
-				0419CD0C2AD91B530047BA9D /* LaunchScreen.storyboard */,
 				0419CD0F2AD91B530047BA9D /* Info.plist */,
+				0419CD0C2AD91B530047BA9D /* LaunchScreen.storyboard */,
+				0419CD032AD91B4B0047BA9D /* SceneDelegate.swift */,
+				0419CD262ADE2A7F0047BA9D /* View */,
 			);
 			path = TwinCalculator;
+			sourceTree = "<group>";
+		};
+		0419CD262ADE2A7F0047BA9D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				0419CD292ADE2CC80047BA9D /* CalculatorViewController.swift */,
+				0419CD272ADE2AC50047BA9D /* ContainerViewController.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -142,8 +153,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0419CD062AD91B4B0047BA9D /* ViewController.swift in Sources */,
+				0419CD2A2ADE2CC80047BA9D /* CalculatorViewController.swift in Sources */,
 				0419CD022AD91B4B0047BA9D /* AppDelegate.swift in Sources */,
+				0419CD282ADE2AC50047BA9D /* ContainerViewController.swift in Sources */,
 				0419CD042AD91B4B0047BA9D /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
