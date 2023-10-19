@@ -1,6 +1,15 @@
 {
   "pins" : [
     {
+      "identity" : "gedatsu",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/bannzai/Gedatsu",
+      "state" : {
+        "revision" : "644f18f82943ed9f6392a5c3ca88a430524a789f",
+        "version" : "1.2.0"
+      }
+    },
+    {
       "identity" : "snapkit",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SnapKit/SnapKit",
