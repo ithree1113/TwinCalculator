@@ -34,11 +34,14 @@ enum CalculatorButtonItem {
     case dot
     case `operator`(Operator)
     case command(Command)
+    case function(Function)
+    case blank
     
     enum Command: String {
         case clear = "AC"
         case flip = "+/-"
         case percent = "%"
+        case delete = "DEL"
     }
     
     enum Operator: String {
@@ -47,6 +50,11 @@ enum CalculatorButtonItem {
         case multiply = "x"
         case divide = "÷"
         case equal = "="
+    }
+    
+    enum Function: String {
+        case toRight = "->"
+        case toLeft = "<-"
     }
 }
 
@@ -61,6 +69,10 @@ extension CalculatorButtonItem {
             return `operator`.rawValue
         case .command(let command):
             return command.rawValue
+        case .function(let function):
+            return function.rawValue
+        case .blank:
+            return ""
         }
     }
     
@@ -80,6 +92,10 @@ extension CalculatorButtonItem {
             return .orange
         case .command:
             return .gray
+        case .function:
+            return .green
+        case .blank:
+            return .clear
         }
     }
 }
