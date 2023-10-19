@@ -10,13 +10,7 @@ import UIKit
 class CalculatorButtonPad: UIView {
     
     private(set) var buttons: [CalculatorButton] = []
-    private let pad: [[CalculatorButtonItem]] = [
-        [.command(.clear), .command(.flip), .command(.percent), .operator(.divide)],
-        [.digit(7), .digit(8), .digit(9), .operator(.multiply)],
-        [.digit(4), .digit(5), .digit(6), .operator(.minus)],
-        [.digit(1), .digit(2), .digit(3), .operator(.plus)],
-        [.digit(0), .dot, .operator(.equal)],
-    ]
+    private let rows: [[CalculatorButtonItem]]
     private let stackView: UIStackView = {
         let sv = UIStackView()
         sv.axis = .vertical
@@ -25,7 +19,8 @@ class CalculatorButtonPad: UIView {
         return sv
     }()
     
-    init() {
+    init(rows: [[CalculatorButtonItem]]) {
+        self.rows = rows
         super.init(frame: .zero)
         initLayout()
     }
@@ -40,7 +35,7 @@ class CalculatorButtonPad: UIView {
             make.edges.equalToSuperview()
         }
         
-        pad.forEach { row in
+        rows.forEach { row in
             let rowView = CalculatorButtonRow(row: row)
             stackView.addArrangedSubview(rowView)
             buttons.append(contentsOf: rowView.buttons)
