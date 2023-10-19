@@ -62,9 +62,9 @@ class ContainerViewController: UIViewController {
             make.width.equalTo(rightCalculator.view)
         }
         
-        if let button = leftCalculator.buttons.first(where: { $0.titleLabel?.text != "0" }) {
+        if let buttonToLayout = leftCalculator.buttons.first(where: { $0.item.widthFactor == 1 }) {
             centerView.snp.makeConstraints { make in
-                make.width.equalTo(button.snp.width)
+                make.width.equalTo(buttonToLayout.snp.width)
             }
         }
     }
