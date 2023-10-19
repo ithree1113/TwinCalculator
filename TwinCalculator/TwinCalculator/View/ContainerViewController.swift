@@ -37,13 +37,11 @@ class ContainerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         initLayout()
+        handleTrait(view.traitCollection)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if let traitCollection = view.window?.windowScene?.screen.traitCollection {
-            handleTrait(traitCollection)
-        }
     }
     
     override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
