@@ -9,6 +9,9 @@ import UIKit
 
 class CalculatorViewController: UIViewController {
 
+    var buttons: [CalculatorButton] {
+        return calculatorButtonPad.buttons
+    }
     private let calculatorButtonPad: CalculatorButtonPad = {
         let cbp = CalculatorButtonPad()
         cbp.backgroundColor = .white

@@ -9,6 +9,7 @@ import UIKit
 
 class CalculatorButtonPad: UIView {
     
+    private(set) var buttons: [CalculatorButton] = []
     private let pad: [[CalculatorButtonItem]] = [[.digit(1), .digit(2), .digit(3), .operator(.plus)],
                                                  [.digit(0), .dot, .operator(.equal)],]
     private let stackView: UIStackView = {
@@ -37,6 +38,7 @@ class CalculatorButtonPad: UIView {
         pad.forEach { row in
             let rowView = CalculatorButtonRow(row: row)
             stackView.addArrangedSubview(rowView)
+            buttons.append(contentsOf: rowView.buttons)
         }
     }
 }

@@ -10,6 +10,7 @@ import UIKit
 class CalculatorButtonRow: UIView {
     
     let row: [CalculatorButtonItem]
+    private(set) var buttons: [CalculatorButton] = []
     private let stackView: UIStackView = {
         let sv = UIStackView()
         sv.axis = .horizontal
@@ -37,6 +38,7 @@ class CalculatorButtonRow: UIView {
         row.forEach { item in
             let button = CalculatorButton(item: item)
             stackView.addArrangedSubview(button)
+            buttons.append(button)
         }
         
         for index in 1..<row.count {
