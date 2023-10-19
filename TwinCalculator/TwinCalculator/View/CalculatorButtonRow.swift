@@ -35,7 +35,7 @@ class CalculatorButtonRow: UIView {
         }
         
         row.forEach { item in
-            let button = CalculatorButton(title: item.title, color: .orange)
+            let button = CalculatorButton(item: item)
             stackView.addArrangedSubview(button)
         }
         

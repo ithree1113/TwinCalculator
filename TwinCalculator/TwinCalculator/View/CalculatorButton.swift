@@ -10,15 +10,15 @@ import UIKit
 // MARK: - CalculatorButton
 class CalculatorButton: UIButton {
     
-    private let title: String
-    private let color: UIColor
+    let item: CalculatorButtonItem
+    var title: String { return item.title }
+    var color: UIColor { return item.color }
     
-    init(title: String, color: UIColor) {
-        self.title = title
-        self.color = color
+    init(item: CalculatorButtonItem) {
+        self.item = item
         super.init(frame: .zero)
-        setTitle(title, for: .normal)
-        backgroundColor = color
+        setTitle(item.title, for: .normal)
+        backgroundColor = item.color
         layer.cornerRadius = 10
         titleLabel?.adjustsFontSizeToFitWidth = true
         titleLabel?.minimumScaleFactor = 0.5
@@ -70,6 +70,13 @@ extension CalculatorButtonItem {
             return 2
         } else {
             return 1
+        }
+    }
+    
+    var color: UIColor {
+        switch self {
+        default:
+            return .orange
         }
     }
 }
