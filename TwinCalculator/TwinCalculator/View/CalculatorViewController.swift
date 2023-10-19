@@ -14,7 +14,6 @@ class CalculatorViewController: UIViewController {
     }
     private let calculatorButtonPad: CalculatorButtonPad = {
         let cbp = CalculatorButtonPad()
-        cbp.backgroundColor = .white
         return cbp
     }()
     

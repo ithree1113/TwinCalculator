@@ -12,13 +12,12 @@ class CalculatorButton: UIButton {
     
     let item: CalculatorButtonItem
     var title: String { return item.title }
-    var color: UIColor { return item.color }
     
     init(item: CalculatorButtonItem) {
         self.item = item
         super.init(frame: .zero)
         setTitle(item.title, for: .normal)
-        backgroundColor = item.color
+        backgroundColor = item.backgroundColor
         layer.cornerRadius = 10
         titleLabel?.adjustsFontSizeToFitWidth = true
         titleLabel?.minimumScaleFactor = 0.5
@@ -73,10 +72,14 @@ extension CalculatorButtonItem {
         }
     }
     
-    var color: UIColor {
+    var backgroundColor: UIColor {
         switch self {
-        default:
+        case .digit, .dot:
+            return .darkGray
+        case .operator:
             return .orange
+        case .command:
+            return .gray
         }
     }
 }
