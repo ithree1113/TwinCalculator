@@ -15,7 +15,7 @@ class CalculatorButtonPad: UIView {
         let sv = UIStackView()
         sv.axis = .vertical
         sv.distribution = .fillEqually
-        sv.spacing = 8
+        sv.spacing = Constants.spacing
         return sv
     }()
     

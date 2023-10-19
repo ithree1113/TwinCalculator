@@ -10,12 +10,11 @@ import UIKit
 class CalculatorButtonRow: UIView {
     
     let row: [CalculatorButtonItem]
-    let spacing: CGFloat = 8
-    private lazy var stackView: UIStackView = {
+    private let stackView: UIStackView = {
         let sv = UIStackView()
         sv.axis = .horizontal
         sv.distribution = .fill
-        sv.spacing = self.spacing
+        sv.spacing = Constants.spacing
         return sv
     }()
     
@@ -49,7 +48,7 @@ class CalculatorButtonRow: UIView {
                     make.width
                         .equalTo(firstBtn)
                         .multipliedBy(ratio)
-                        .offset((ratio - 1) * spacing)
+                        .offset((ratio - 1) * Constants.spacing)
                 }
             }
         }
