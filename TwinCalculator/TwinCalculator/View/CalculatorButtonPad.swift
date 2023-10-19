@@ -10,8 +10,13 @@ import UIKit
 class CalculatorButtonPad: UIView {
     
     private(set) var buttons: [CalculatorButton] = []
-    private let pad: [[CalculatorButtonItem]] = [[.digit(1), .digit(2), .digit(3), .operator(.plus)],
-                                                 [.digit(0), .dot, .operator(.equal)],]
+    private let pad: [[CalculatorButtonItem]] = [
+        [.command(.clear), .command(.flip), .command(.percent), .operator(.divide)],
+        [.digit(7), .digit(8), .digit(9), .operator(.multiply)],
+        [.digit(4), .digit(5), .digit(6), .operator(.minus)],
+        [.digit(1), .digit(2), .digit(3), .operator(.plus)],
+        [.digit(0), .dot, .operator(.equal)],
+    ]
     private let stackView: UIStackView = {
         let sv = UIStackView()
         sv.axis = .vertical
