@@ -1,0 +1,42 @@
+//
+//  CalculatorButtonPad.swift
+//  TwinCalculator
+//
+//  Created by eddiecheng on 2023/10/17.
+//
+
+import UIKit
+
+class CalculatorButtonPad: UIView {
+    
+    private let pad: [[CalculatorButtonItem]] = [[.digit(1), .digit(2), .digit(3), .operator(.plus)],
+                                                 [.digit(0), .dot, .operator(.equal)],]
+    private let stackView: UIStackView = {
+        let sv = UIStackView()
+        sv.axis = .vertical
+        sv.distribution = .fillEqually
+        sv.spacing = 8
+        return sv
+    }()
+    
+    init() {
+        super.init(frame: .zero)
+        initLayout()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func initLayout() {
+        addSubview(stackView)
+        stackView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
+        pad.forEach { row in
+            let rowView = CalculatorButtonRow(row: row)
+            stackView.addArrangedSubview(rowView)
+        }
+    }
+}
