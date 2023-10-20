@@ -26,6 +26,7 @@ class CalculatorViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         initLatout()
+        addButtonsSelectors()
     }
     
     // MARK: Layout
@@ -36,5 +37,16 @@ class CalculatorViewController: UIViewController {
             make.bottom.equalTo(view.safeAreaLayoutGuide)
             make.left.right.equalTo(view.safeAreaLayoutGuide).inset(Constants.spacing)
         }
+    }
+    
+    // MARK: Method
+    private func addButtonsSelectors() {
+        buttons.forEach { button in
+            button.addTarget(self, action: #selector(calculatorButtonDidTap(_:)), for: .touchUpInside)
+        }
+    }
+    
+    @objc private func calculatorButtonDidTap(_ sender: CalculatorButton) {
+        
     }
 }
