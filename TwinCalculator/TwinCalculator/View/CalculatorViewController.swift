@@ -32,7 +32,7 @@ class CalculatorViewController: UIViewController {
     private func initLatout() {
         view.addSubview(calculatorButtonPad)
         calculatorButtonPad.snp.makeConstraints { make in
-            make.height.equalToSuperview().multipliedBy(2.0/3.0)
+            make.height.equalToSuperview().multipliedBy(Constants.padHeightRatio)
             make.bottom.equalTo(view.safeAreaLayoutGuide)
             make.left.right.equalTo(view.safeAreaLayoutGuide).inset(Constants.spacing)
         }
