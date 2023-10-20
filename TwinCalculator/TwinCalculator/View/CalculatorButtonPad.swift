@@ -19,9 +19,10 @@ class CalculatorButtonPad: UIView {
         return sv
     }()
     
-    init(rows: [[CalculatorButtonItem]]) {
+    init(rows: [[CalculatorButtonItem]], configStackView: ((UIStackView) -> ())? = nil) {
         self.rows = rows
         super.init(frame: .zero)
+        configStackView?(stackView)
         initLayout()
     }
     

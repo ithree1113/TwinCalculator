@@ -14,6 +14,7 @@ class ContainerViewController: UIViewController {
     private lazy var stackView: UIStackView = {
         let sv = UIStackView(arrangedSubviews: [leftCalculator.view, centerView, rightCalculator.view])
         sv.distribution = .fill
+        sv.spacing = Constants.spacing
         return sv
     }()
     private let leftCalculator: CalculatorViewController = {
@@ -23,9 +24,20 @@ class ContainerViewController: UIViewController {
     }()
     private let centerView: UIView = {
         let cv = UIView()
-        cv.backgroundColor = .gray
         cv.isHidden = true
         return cv
+    }()
+    private let centerPad: CalculatorButtonPad = {
+        let cp = CalculatorButtonPad(rows: [
+            [.function(.toLeft)],
+            [.function(.toRight)],
+            [.blank],
+            [.command(.delete)],
+        ],
+                                     configStackView: { stackView in
+            stackView.distribution = .equalSpacing
+        })
+        return cp
     }()
     private let rightCalculator: CalculatorViewController = {
         let rc = CalculatorViewController()
@@ -62,9 +74,16 @@ class ContainerViewController: UIViewController {
             make.width.equalTo(rightCalculator.view)
         }
         
+        centerView.addSubview(centerPad)
+        centerPad.snp.makeConstraints { make in
+            make.left.right.bottom.equalToSuperview()
+            make.height.equalTo(leftCalculator.calculatorButtonPad.snp.height)
+        }
         if let buttonToLayout = leftCalculator.buttons.first(where: { $0.item.widthFactor == 1 }) {
-            centerView.snp.makeConstraints { make in
-                make.width.equalTo(buttonToLayout.snp.width)
+            centerPad.buttons.forEach { centerButton in
+                centerButton.snp.makeConstraints { make in
+                    make.size.equalTo(buttonToLayout)
+                }
             }
         }
     }

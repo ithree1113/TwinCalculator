@@ -12,7 +12,7 @@ class CalculatorViewController: UIViewController {
     var buttons: [CalculatorButton] {
         return calculatorButtonPad.buttons
     }
-    private let calculatorButtonPad: CalculatorButtonPad = {
+    let calculatorButtonPad: CalculatorButtonPad = {
         let cbp = CalculatorButtonPad(rows:[
             [.command(.clear), .command(.flip), .command(.percent), .operator(.divide)],
             [.digit(7), .digit(8), .digit(9), .operator(.multiply)],
