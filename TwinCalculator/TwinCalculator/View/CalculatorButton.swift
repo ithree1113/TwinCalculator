@@ -44,12 +44,35 @@ enum CalculatorButtonItem {
         case delete = "DEL"
     }
     
+    enum OperatorError: Error {
+        case divisorIsZero
+        case noFunction
+    }
+    
     enum Operator: String {
         case plus = "+"
         case minus = "-"
         case multiply = "x"
         case divide = "÷"
         case equal = "="
+        
+        func calculate(x: Decimal, y: Decimal) throws -> Decimal {
+            switch self {
+            case .plus:
+                return x + y
+            case .minus:
+                return x - y
+            case .multiply:
+                return x * y
+            case .divide:
+                guard y != 0 else {
+                    throw OperatorError.divisorIsZero
+                }
+                return x / y
+            default:
+                throw OperatorError.noFunction
+            }
+        }
     }
     
     enum Function: String {
