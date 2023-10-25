@@ -61,6 +61,7 @@ class CalculatorViewModel: CalculatorViewModelPrortocol {
         switch command {
         case .clear:
             resultUpdated?("0")
+            processUpdated?("0")
             changeState(FirstOperandState(context: self))
         case .flip:
             state?.acceptFlip()
@@ -236,6 +237,7 @@ private class SecondOperandState: CalculatorStateProtocol {
     }
     
     func acceptPercent() {
+        context.isPercent = true
         if context.secondOperand == nil {
             context.secondOperand = context.firstOperand / 100
         } else {
