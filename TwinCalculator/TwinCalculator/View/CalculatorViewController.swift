@@ -98,7 +98,18 @@ class CalculatorViewController: UIViewController {
     // MARK: Binding
     private func bindViewModel() {
         viewModel.resultUpdated = { result in
-            print(result)
+            if result.contains(where: { $0 == "." }) {
+                let splits = result.split(separator: ".")
+                guard let intValue = Decimal(string: String(splits[0])) else { return }
+                
+                self.resultLabel.text = intValue.toString() + "."
+                if splits.count > 1 {
+                    self.resultLabel.text! += String(splits.last ?? "")
+                }
+            } else {
+                guard let value = Decimal(string: result) else { return }
+                self.resultLabel.text = value.toString()
+            }
         }
         
         viewModel.processUpdated = { process in

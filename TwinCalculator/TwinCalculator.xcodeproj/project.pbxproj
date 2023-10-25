@@ -20,6 +20,7 @@
 		0419CD332ADFB17E0047BA9D /* Gedatsu in Frameworks */ = {isa = PBXBuildFile; productRef = 0419CD322ADFB17E0047BA9D /* Gedatsu */; };
 		0419CD352AE10F850047BA9D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0419CD342AE10F850047BA9D /* Constants.swift */; };
 		0419CD382AE24B930047BA9D /* CalculatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0419CD372AE24B930047BA9D /* CalculatorViewModel.swift */; };
+		0419CD472AE900740047BA9D /* Decimal+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0419CD462AE900740047BA9D /* Decimal+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		0419CD2F2ADE7FB30047BA9D /* CalculatorButtonRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorButtonRow.swift; sourceTree = "<group>"; };
 		0419CD342AE10F850047BA9D /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		0419CD372AE24B930047BA9D /* CalculatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorViewModel.swift; sourceTree = "<group>"; };
+		0419CD462AE900740047BA9D /* Decimal+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Decimal+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +75,7 @@
 				0419CD012AD91B4B0047BA9D /* AppDelegate.swift */,
 				0419CD0A2AD91B530047BA9D /* Assets.xcassets */,
 				0419CD342AE10F850047BA9D /* Constants.swift */,
+				0419CD452AE9004E0047BA9D /* Extension */,
 				0419CD0F2AD91B530047BA9D /* Info.plist */,
 				0419CD0C2AD91B530047BA9D /* LaunchScreen.storyboard */,
 				0419CD032AD91B4B0047BA9D /* SceneDelegate.swift */,
@@ -100,6 +103,14 @@
 				0419CD372AE24B930047BA9D /* CalculatorViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		0419CD452AE9004E0047BA9D /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				0419CD462AE900740047BA9D /* Decimal+Extension.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -185,6 +196,7 @@
 				0419CD022AD91B4B0047BA9D /* AppDelegate.swift in Sources */,
 				0419CD282ADE2AC50047BA9D /* ContainerViewController.swift in Sources */,
 				0419CD042AD91B4B0047BA9D /* SceneDelegate.swift in Sources */,
+				0419CD472AE900740047BA9D /* Decimal+Extension.swift in Sources */,
 				0419CD302ADE7FB30047BA9D /* CalculatorButtonRow.swift in Sources */,
 				0419CD2C2ADE74890047BA9D /* CalculatorButton.swift in Sources */,
 				0419CD2E2ADE7F870047BA9D /* CalculatorButtonPad.swift in Sources */,
