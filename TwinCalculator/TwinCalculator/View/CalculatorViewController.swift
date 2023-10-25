@@ -106,9 +106,10 @@ class CalculatorViewController: UIViewController {
                 if splits.count > 1 {
                     self.resultLabel.text! += String(splits.last ?? "")
                 }
-            } else {
-                guard let value = Decimal(string: result) else { return }
+            } else if let value = Decimal(string: result) {
                 self.resultLabel.text = value.toString()
+            } else {
+                self.resultLabel.text = result
             }
         }
         
