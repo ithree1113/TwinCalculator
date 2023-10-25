@@ -22,6 +22,25 @@ class CalculatorViewController: UIViewController {
         ])
         return cbp
     }()
+    let resultLabel: UILabel = {
+        let rl = UILabel()
+        rl.adjustsFontSizeToFitWidth = true
+        rl.minimumScaleFactor = 0.2
+        rl.text = "0"
+        rl.textColor = .white
+        rl.textAlignment = .right
+        rl.font = .systemFont(ofSize: 64)
+        return rl
+    }()
+    let processLabel: UILabel = {
+        let pl = UILabel()
+        pl.adjustsFontSizeToFitWidth = true
+        pl.minimumScaleFactor = 0.2
+        pl.text = "0"
+        pl.textColor = .white
+        pl.font = .systemFont(ofSize: 48)
+        return pl
+    }()
     private var viewModel: CalculatorViewModelPrortocol
     
     // MARK: Init
@@ -50,6 +69,30 @@ class CalculatorViewController: UIViewController {
             make.bottom.equalTo(view.safeAreaLayoutGuide)
             make.left.right.equalTo(view.safeAreaLayoutGuide).inset(Constants.spacing)
         }
+        
+        let resultLayoutGuide = UILayoutGuide()
+        view.addLayoutGuide(resultLayoutGuide)
+        resultLayoutGuide.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide)
+            make.left.right.equalTo(calculatorButtonPad)
+            make.bottom.equalTo(calculatorButtonPad.snp.top)
+        }
+        view.addSubview(resultLabel)
+        resultLabel.snp.makeConstraints { make in
+            make.left.right.centerY.equalTo(resultLayoutGuide)
+        }
+        
+        let processLayoutGuide = UILayoutGuide()
+        view.addLayoutGuide(processLayoutGuide)
+        processLayoutGuide.snp.makeConstraints { make in
+            make.top.equalTo(resultLabel.snp.bottom)
+            make.left.right.equalTo(calculatorButtonPad)
+            make.bottom.equalTo(calculatorButtonPad.snp.top)
+        }
+        view.addSubview(processLabel)
+        processLabel.snp.makeConstraints { make in
+            make.left.right.centerY.equalTo(processLayoutGuide)
+        }
     }
     
     // MARK: Binding
@@ -59,7 +102,7 @@ class CalculatorViewController: UIViewController {
         }
         
         viewModel.processUpdated = { process in
-            print(process)
+            self.processLabel.text = process
         }
     }
     
