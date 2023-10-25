@@ -22,11 +22,24 @@ class CalculatorViewController: UIViewController {
         ])
         return cbp
     }()
+    private var viewModel: CalculatorViewModelPrortocol
     
+    // MARK: Init
+    init(viewModel: CalculatorViewModelPrortocol) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         initLatout()
         addButtonsSelectors()
+        bindViewModel()
     }
     
     // MARK: Layout
@@ -39,6 +52,17 @@ class CalculatorViewController: UIViewController {
         }
     }
     
+    // MARK: Binding
+    private func bindViewModel() {
+        viewModel.resultUpdated = { result in
+            print(result)
+        }
+        
+        viewModel.processUpdated = { process in
+            print(process)
+        }
+    }
+    
     // MARK: Method
     private func addButtonsSelectors() {
         buttons.forEach { button in
@@ -47,6 +71,6 @@ class CalculatorViewController: UIViewController {
     }
     
     @objc private func calculatorButtonDidTap(_ sender: CalculatorButton) {
-        
+        viewModel.acceptButtonInput(sender.item)
     }
 }

@@ -18,7 +18,7 @@ class ContainerViewController: UIViewController {
         return sv
     }()
     private let leftCalculator: CalculatorViewController = {
-        let lc = CalculatorViewController()
+        let lc = CalculatorViewController(viewModel: CalculatorViewModel())
         lc.view.backgroundColor = .black
         return lc
     }()
@@ -40,7 +40,7 @@ class ContainerViewController: UIViewController {
         return cp
     }()
     private let rightCalculator: CalculatorViewController = {
-        let rc = CalculatorViewController()
+        let rc = CalculatorViewController(viewModel: CalculatorViewModel())
         rc.view.backgroundColor = .black
         rc.view.isHidden = true
         return rc
