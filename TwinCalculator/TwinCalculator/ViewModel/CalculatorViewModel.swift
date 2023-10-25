@@ -110,7 +110,7 @@ private class FirstOperandState: CalculatorStateProtocol {
     }
     
     func acceptDigit(_ digit: Decimal) {
-        if context.firstOperand == 0 || context.isPercent {
+        if context.isPercent {
             context.isPercent = false
             context.firstOperand = digit
         } else if context.dotDecimal == 0 {
@@ -170,7 +170,7 @@ private class SecondOperandState: CalculatorStateProtocol {
     }
 
     func acceptDigit(_ digit: Decimal) {
-        if context.secondOperand == 0 || context.secondOperand == nil || context.isPercent {
+        if context.secondOperand == nil || context.isPercent {
             context.isPercent = false
             context.secondOperand = digit
         } else if context.dotDecimal == 0 {
