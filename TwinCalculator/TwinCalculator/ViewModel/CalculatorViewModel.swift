@@ -47,6 +47,14 @@ class CalculatorViewModel: CalculatorViewModelPrortocol {
         }
     }
     
+    func getOperand() -> Decimal {
+        return state!.getOperand()
+    }
+    
+    func setOperand(_ operand: Decimal) {
+        state?.setOperand(operand)
+    }
+    
     func changeState(_ state: CalculatorStateProtocol) {
         self.state = state
     }
@@ -91,6 +99,8 @@ protocol CalculatorStateProtocol {
     func acceptOperator(_ op: CalculatorButtonItem.Operator)
     func acceptFlip()
     func acceptPercent()
+    func getOperand() -> Decimal
+    func setOperand(_ operand: Decimal)
 }
 
 // MARK: - FirstOperandState
@@ -113,8 +123,7 @@ private class FirstOperandState: CalculatorStateProtocol {
             context.firstOperand = context.firstOperand + digit / context.dotDecimal
             context.dotDecimal *= 10
         }
-        context.resultUpdated?("\(context.firstOperand)")
-        context.showProcess(firstOperand: context.firstOperand)
+        updateInfo()
     }
     
     func acceptDot() {
@@ -140,13 +149,25 @@ private class FirstOperandState: CalculatorStateProtocol {
     
     func acceptFlip() {
         context.firstOperand = -context.firstOperand
-        context.resultUpdated?("\(context.firstOperand)")
-        context.showProcess(firstOperand: context.firstOperand)
+        updateInfo()
     }
     
     func acceptPercent() {
         context.isPercent = true
         context.firstOperand /= 100
+        updateInfo()
+    }
+    
+    func getOperand() -> Decimal {
+        return context.firstOperand
+    }
+    
+    func setOperand(_ operand: Decimal) {
+        context.firstOperand = operand
+        updateInfo()
+    }
+    
+    private func updateInfo() {
         context.resultUpdated?("\(context.firstOperand)")
         context.showProcess(firstOperand: context.firstOperand)
     }
@@ -173,10 +194,7 @@ private class SecondOperandState: CalculatorStateProtocol {
             context.secondOperand = context.secondOperand! + digit / context.dotDecimal
             context.dotDecimal *= 10
         }
-        context.resultUpdated?("\(context.secondOperand!)")
-        context.showProcess(firstOperand: context.firstOperand,
-                            op: context.oprator?.rawValue,
-                            secondOperand: context.secondOperand)
+        updateInfo()
     }
     
     func acceptDot() {
@@ -204,11 +222,7 @@ private class SecondOperandState: CalculatorStateProtocol {
         do {
             guard let ope = context.oprator else { throw CalculatorButtonItem.OperatorError.noFunction }
             result = try ope.calculate(x: context.firstOperand, y: context.secondOperand!)
-            context.resultUpdated?("\(result)")
-            context.showProcess(firstOperand: context.firstOperand,
-                                op: ope.rawValue,
-                                secondOperand: context.secondOperand,
-                                result: result)
+            updateInfo(result: result)
         } catch CalculatorButtonItem.OperatorError.divisorIsZero {
             context.resultUpdated?("No number")
         } catch {
@@ -223,10 +237,7 @@ private class SecondOperandState: CalculatorStateProtocol {
             context.secondOperand = context.firstOperand
         }
         context.secondOperand = -context.secondOperand!
-        context.resultUpdated?("\(context.secondOperand!)")
-        context.showProcess(firstOperand: context.firstOperand,
-                            op: context.oprator?.rawValue,
-                            secondOperand: context.secondOperand)
+        updateInfo()
     }
     
     func acceptPercent() {
@@ -235,10 +246,28 @@ private class SecondOperandState: CalculatorStateProtocol {
             context.secondOperand = context.firstOperand
         }
         context.secondOperand! /= 100
-        context.resultUpdated?("\(context.secondOperand!)")
+        updateInfo()
+    }
+    
+    func getOperand() -> Decimal {
+        if let secondOperand = context.secondOperand {
+            return secondOperand
+        } else {
+            return context.firstOperand
+        }
+    }
+    
+    func setOperand(_ operand: Decimal) {
+        context.secondOperand = operand
+        updateInfo()
+    }
+    
+    private func updateInfo(result: Decimal? = nil) {
+        context.resultUpdated?("\(result == nil ? context.secondOperand! : result!)")
         context.showProcess(firstOperand: context.firstOperand,
                             op: context.oprator?.rawValue,
-                            secondOperand: context.secondOperand)
+                            secondOperand: context.secondOperand,
+                            result: result)
     }
 }
 
