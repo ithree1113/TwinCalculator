@@ -42,9 +42,7 @@ class CalculatorViewModel: CalculatorViewModelPrortocol {
             state?.acceptOperator(op)
         case .command(let command):
             handleCommand(command)
-        case .function(let function):
-            break
-        case .blank:
+        case .function, .blank:
             break
         }
     }
