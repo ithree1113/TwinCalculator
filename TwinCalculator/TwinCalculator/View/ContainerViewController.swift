@@ -51,6 +51,7 @@ class ContainerViewController: UIViewController {
         super.viewDidLoad()
         initLayout()
         handleTrait(view.traitCollection)
+        addButtonsSelectors()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -96,6 +97,26 @@ class ContainerViewController: UIViewController {
         } else {
             centerView.isHidden = false
             rightCalculator.view.isHidden = false
+        }
+    }
+    
+    private func addButtonsSelectors() {
+        centerPad.buttons.forEach { button in
+            button.addTarget(self, action: #selector(calculatorButtonDidTap(_:)), for: .touchUpInside)
+        }
+    }
+    
+    @objc private func calculatorButtonDidTap(_ sender: CalculatorButton) {
+        switch sender.item {
+        case .function(let function) where function == .toRight:
+            rightCalculator.setOperand(leftCalculator.getOperand())
+        case .function(let function) where function == .toLeft:
+            leftCalculator.setOperand(rightCalculator.getOperand())
+        case .command(let command) where command == .delete:
+            leftCalculator.reset()
+            rightCalculator.reset()
+        default:
+            break
         }
     }
 }

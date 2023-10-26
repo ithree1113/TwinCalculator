@@ -119,6 +119,18 @@ class CalculatorViewController: UIViewController {
     }
     
     // MARK: Method
+    func getOperand() -> Decimal {
+        return viewModel.getOperand()
+    }
+    
+    func setOperand(_ operand: Decimal) {
+        viewModel.setOperand(operand)
+    }
+    
+    func reset() {
+        viewModel.reset()
+    }
+    
     private func addButtonsSelectors() {
         buttons.forEach { button in
             button.addTarget(self, action: #selector(calculatorButtonDidTap(_:)), for: .touchUpInside)

@@ -14,6 +14,9 @@ protocol CalculatorViewModelPrortocol {
     var processUpdated: ((String) -> Void)? { get set }
     
     func acceptButtonInput(_ input: CalculatorButtonItem)
+    func getOperand() -> Decimal
+    func setOperand(_ operand: Decimal)
+    func reset()
 }
 
 // MARK: - CalculatorViewModel
@@ -82,7 +85,7 @@ class CalculatorViewModel: CalculatorViewModelPrortocol {
         processUpdated?(firstString + operatorString + secondString + resultString)
     }
     
-    fileprivate func reset() {
+    func reset() {
         firstOperand = 0
         secondOperand = nil
         oprator = nil
