@@ -220,10 +220,9 @@ private class SecondOperandState: CalculatorStateProtocol {
     
     func acceptFlip() {
         if context.secondOperand == nil {
-            context.secondOperand = -context.firstOperand
-        } else {
-            context.secondOperand = -context.secondOperand!
+            context.secondOperand = context.firstOperand
         }
+        context.secondOperand = -context.secondOperand!
         context.resultUpdated?("\(context.secondOperand!)")
         context.showProcess(firstOperand: context.firstOperand,
                             op: context.oprator?.rawValue,
@@ -233,10 +232,9 @@ private class SecondOperandState: CalculatorStateProtocol {
     func acceptPercent() {
         context.isPercent = true
         if context.secondOperand == nil {
-            context.secondOperand = context.firstOperand / 100
-        } else {
-            context.secondOperand! /= 100
+            context.secondOperand = context.firstOperand
         }
+        context.secondOperand! /= 100
         context.resultUpdated?("\(context.secondOperand!)")
         context.showProcess(firstOperand: context.firstOperand,
                             op: context.oprator?.rawValue,
