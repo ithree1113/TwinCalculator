@@ -21,12 +21,12 @@ class CalculatorViewModel: CalculatorViewModelPrortocol {
 
     var resultUpdated: ((String) -> Void)?
     var processUpdated: ((String) -> Void)?
-    var state: CalculatorStateProtocol?
-    var firstOperand: Decimal = 0
-    var secondOperand: Decimal? = nil
-    var oprator: CalculatorButtonItem.Operator? = nil
-    var dotDecimal: Decimal = 0
-    var isPercent: Bool = false
+    fileprivate var state: CalculatorStateProtocol?
+    fileprivate var firstOperand: Decimal = 0
+    fileprivate var secondOperand: Decimal? = nil
+    fileprivate var oprator: CalculatorButtonItem.Operator? = nil
+    fileprivate var dotDecimal: Decimal = 0
+    fileprivate var isPercent: Bool = false
     
     init() {
         state = FirstOperandState(context: self)
@@ -55,11 +55,11 @@ class CalculatorViewModel: CalculatorViewModelPrortocol {
         state?.setOperand(operand)
     }
     
-    func changeState(_ state: CalculatorStateProtocol) {
+    fileprivate func changeState(_ state: CalculatorStateProtocol) {
         self.state = state
     }
     
-    func handleCommand(_ command: CalculatorButtonItem.Command) {
+    fileprivate func handleCommand(_ command: CalculatorButtonItem.Command) {
         switch command {
         case .clear:
             resultUpdated?("0")
@@ -74,7 +74,7 @@ class CalculatorViewModel: CalculatorViewModelPrortocol {
         }
     }
     
-    func showProcess(firstOperand: Decimal, op: String? = nil, secondOperand: Decimal? = nil, result: Decimal? = nil) {
+    fileprivate func showProcess(firstOperand: Decimal, op: String? = nil, secondOperand: Decimal? = nil, result: Decimal? = nil) {
         let firstString = "\(firstOperand)"
         let operatorString = op == nil ? "" : op!
         let secondString = secondOperand == nil ? "" : String(describing: secondOperand!)
@@ -82,7 +82,7 @@ class CalculatorViewModel: CalculatorViewModelPrortocol {
         processUpdated?(firstString + operatorString + secondString + resultString)
     }
     
-    func reset() {
+    fileprivate func reset() {
         firstOperand = 0
         secondOperand = nil
         oprator = nil
