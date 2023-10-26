@@ -27,10 +27,6 @@ class CalculatorViewModel: CalculatorViewModelPrortocol {
     var oprator: CalculatorButtonItem.Operator? = nil
     var dotDecimal: Decimal = 0
     var isPercent: Bool = false
-    var firstOperandString: String = ""
-    var opratorString: String = ""
-    var secondOperandString: String = ""
-    var resultString: String = ""
     
     init() {
         state = FirstOperandState(context: self)
