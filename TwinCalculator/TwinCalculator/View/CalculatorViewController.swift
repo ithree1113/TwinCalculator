@@ -80,6 +80,7 @@ class CalculatorViewController: UIViewController {
         view.addSubview(resultLabel)
         resultLabel.snp.makeConstraints { make in
             make.left.right.centerY.equalTo(resultLayoutGuide)
+            make.height.equalTo(resultLayoutGuide).multipliedBy(0.4)
         }
         
         let processLayoutGuide = UILayoutGuide()
@@ -92,6 +93,7 @@ class CalculatorViewController: UIViewController {
         view.addSubview(processLabel)
         processLabel.snp.makeConstraints { make in
             make.left.right.centerY.equalTo(processLayoutGuide)
+            make.top.bottom.lessThanOrEqualTo(processLayoutGuide).inset(4)
         }
     }
     
