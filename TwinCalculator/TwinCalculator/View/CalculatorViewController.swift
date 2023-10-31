@@ -29,7 +29,7 @@ class CalculatorViewController: UIViewController {
         rl.text = "0"
         rl.textColor = .white
         rl.textAlignment = .right
-        rl.font = .systemFont(ofSize: 64)
+        rl.font = .systemFont(ofSize: 96)
         return rl
     }()
     let processLabel: UILabel = {
@@ -38,7 +38,7 @@ class CalculatorViewController: UIViewController {
         pl.minimumScaleFactor = 0.2
         pl.text = "0"
         pl.textColor = .white
-        pl.font = .systemFont(ofSize: 48)
+        pl.font = .systemFont(ofSize: 36)
         return pl
     }()
     private var viewModel: CalculatorViewModelPrortocol
