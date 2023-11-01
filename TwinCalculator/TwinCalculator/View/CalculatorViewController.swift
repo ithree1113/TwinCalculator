@@ -100,14 +100,10 @@ class CalculatorViewController: UIViewController {
     // MARK: Binding
     private func bindViewModel() {
         viewModel.resultUpdated = { result in
-            if result.contains(where: { $0 == "." }) {
-                let splits = result.split(separator: ".")
-                guard let intValue = Decimal(string: String(splits[0])) else { return }
+            if result.contains(where: { $0 == "." }), result.split(separator: ".").count == 1 {
+                guard let value = Decimal(string: result.replacingOccurrences(of: ".", with: "")) else { return }
                 
-                self.resultLabel.text = intValue.toString() + "."
-                if splits.count > 1 {
-                    self.resultLabel.text! += String(splits.last ?? "")
-                }
+                self.resultLabel.text = value.toString() + "."
             } else if let value = Decimal(string: result) {
                 self.resultLabel.text = value.toString()
             } else {
