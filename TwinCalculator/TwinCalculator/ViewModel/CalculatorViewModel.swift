@@ -220,11 +220,6 @@ private class SecondOperandState: CalculatorStateProtocol {
     }
     
     func acceptOperator(_ op: CalculatorButtonItem.Operator) {
-        guard op == .equal else {
-            context.oprator = op
-            context.showProcess(firstOperand: context.firstOperand, op: op.rawValue)
-            return
-        }
         if context.secondOperand == nil {
             context.secondOperand = context.firstOperand
         }
@@ -238,8 +233,10 @@ private class SecondOperandState: CalculatorStateProtocol {
         } catch {
             
         }
-        context.changeState(FirstOperandState(context: context))
+        let newState = FirstOperandState(context: context)
+        context.changeState(newState)
         context.firstOperand = result
+        newState.acceptOperator(op)
     }
     
     func acceptFlip() {
