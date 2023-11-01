@@ -69,12 +69,27 @@ class CalculatorViewModel: CalculatorViewModelPrortocol {
             processUpdated?("0")
             changeState(FirstOperandState(context: self))
         case .flip:
-            state?.acceptFlip()
+            handleFlip()
         case .percent:
-            state?.acceptPercent()
+            handlePercent()
         case .delete:
             break
         }
+    }
+    
+    fileprivate func handleFlip() {
+        guard let state = state else { return }
+        state.setOperand(-state.getOperand())
+        resultUpdated?("\(state.getOperand())")
+        showProcess(firstOperand: firstOperand, op: oprator?.rawValue, secondOperand: secondOperand)
+    }
+    
+    fileprivate func handlePercent() {
+        guard let state = state else { return }
+        isPercent = true
+        state.setOperand(state.getOperand()/100)
+        resultUpdated?("\(state.getOperand())")
+        showProcess(firstOperand: firstOperand, op: oprator?.rawValue, secondOperand: secondOperand)
     }
     
     fileprivate func showProcess(firstOperand: Decimal, op: String? = nil, secondOperand: Decimal? = nil, result: Decimal? = nil) {
@@ -100,8 +115,6 @@ protocol CalculatorStateProtocol {
     func acceptDigit(_ digit: Int)
     func acceptDot()
     func acceptOperator(_ op: CalculatorButtonItem.Operator)
-    func acceptFlip()
-    func acceptPercent()
     func getOperand() -> Decimal
     func setOperand(_ operand: Decimal)
 }
@@ -148,17 +161,6 @@ private class FirstOperandState: CalculatorStateProtocol {
         context.oprator = op
         context.changeState(SecondOperandState(context: context))
         context.showProcess(firstOperand: context.firstOperand, op: op.rawValue)
-    }
-    
-    func acceptFlip() {
-        context.firstOperand = -context.firstOperand
-        updateInfo()
-    }
-    
-    func acceptPercent() {
-        context.isPercent = true
-        context.firstOperand /= 100
-        updateInfo()
     }
     
     func getOperand() -> Decimal {
@@ -237,23 +239,6 @@ private class SecondOperandState: CalculatorStateProtocol {
         context.changeState(newState)
         context.firstOperand = result
         newState.acceptOperator(op)
-    }
-    
-    func acceptFlip() {
-        if context.secondOperand == nil {
-            context.secondOperand = context.firstOperand
-        }
-        context.secondOperand = -context.secondOperand!
-        updateInfo()
-    }
-    
-    func acceptPercent() {
-        context.isPercent = true
-        if context.secondOperand == nil {
-            context.secondOperand = context.firstOperand
-        }
-        context.secondOperand! /= 100
-        updateInfo()
     }
     
     func getOperand() -> Decimal {
