@@ -63,6 +63,7 @@ class CalculatorViewModel: CalculatorViewModelPrortocol {
     }
     
     fileprivate func handleCommand(_ command: CalculatorButtonItem.Command) {
+        fractionDigits = 0
         switch command {
         case .clear:
             resultUpdated?("0", 0)
