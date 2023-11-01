@@ -342,6 +342,7 @@ private class CalculatorState {
     }
 
     fileprivate func handleCommand(_ command: CalculatorButtonItem.Command) {
+        fractionDigits = 0
         switch command {
         case .clear:
             context.resultUpdated?("0", 0)
