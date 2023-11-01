@@ -10,7 +10,7 @@ import Foundation
 // MARK: - CalculatorViewModelPrortocol
 protocol CalculatorViewModelPrortocol {
     
-    var resultUpdated: ((String) -> Void)? { get set }
+    var resultUpdated: ((String, Int) -> Void)? { get set }
     var processUpdated: ((String) -> Void)? { get set }
     
     func acceptButtonInput(_ input: CalculatorButtonItem)
@@ -22,7 +22,7 @@ protocol CalculatorViewModelPrortocol {
 // MARK: - CalculatorViewModel
 class CalculatorViewModel: CalculatorViewModelPrortocol {
 
-    var resultUpdated: ((String) -> Void)?
+    var resultUpdated: ((String, Int) -> Void)?
     var processUpdated: ((String) -> Void)?
     fileprivate var state: CalculatorStateProtocol?
     fileprivate var firstOperand: Decimal = 0
@@ -65,7 +65,7 @@ class CalculatorViewModel: CalculatorViewModelPrortocol {
     fileprivate func handleCommand(_ command: CalculatorButtonItem.Command) {
         switch command {
         case .clear:
-            resultUpdated?("0")
+            resultUpdated?("0", 0)
             processUpdated?("0")
             changeState(FirstOperandState(context: self))
         case .flip:
@@ -80,7 +80,7 @@ class CalculatorViewModel: CalculatorViewModelPrortocol {
     fileprivate func handleFlip() {
         guard let state = state else { return }
         state.setOperand(-state.getOperand())
-        resultUpdated?("\(state.getOperand())")
+        resultUpdated?("\(state.getOperand())", 0)
         showProcess(firstOperand: firstOperand, op: oprator?.rawValue, secondOperand: secondOperand)
     }
     
@@ -88,7 +88,7 @@ class CalculatorViewModel: CalculatorViewModelPrortocol {
         guard let state = state else { return }
         isPercent = true
         state.setOperand(state.getOperand()/100)
-        resultUpdated?("\(state.getOperand())")
+        resultUpdated?("\(state.getOperand())", 0)
         showProcess(firstOperand: firstOperand, op: oprator?.rawValue, secondOperand: secondOperand)
     }
     
@@ -151,7 +151,7 @@ private class FirstOperandState: CalculatorStateProtocol {
         guard context.fractionDigits == 0 else { return }
         context.fractionDigits += 1
         
-        context.resultUpdated?("\(context.firstOperand).")
+        context.resultUpdated?("\(context.firstOperand)", context.fractionDigits)
     }
     
     func acceptOperator(_ op: CalculatorButtonItem.Operator) {
@@ -173,14 +173,7 @@ private class FirstOperandState: CalculatorStateProtocol {
     }
     
     private func updateInfo() {
-        var valueString = "\(context.firstOperand)"
-        if context.fractionDigits != 0, context.firstOperand == 0 {
-            valueString += "."
-            for _ in 1..<context.fractionDigits {
-                valueString += "0"
-            }
-        }
-        context.resultUpdated?(valueString)
+        context.resultUpdated?("\(context.firstOperand)", context.fractionDigits)
         context.showProcess(firstOperand: context.firstOperand)
     }
 }
@@ -218,7 +211,7 @@ private class SecondOperandState: CalculatorStateProtocol {
         guard context.fractionDigits == 0 else { return }
         context.fractionDigits += 1
         
-        context.resultUpdated?("\(context.secondOperand!).")
+        context.resultUpdated?("\(context.secondOperand!)", context.fractionDigits)
     }
     
     func acceptOperator(_ op: CalculatorButtonItem.Operator) {
@@ -231,7 +224,7 @@ private class SecondOperandState: CalculatorStateProtocol {
             result = try ope.calculate(x: context.firstOperand, y: context.secondOperand!)
             updateInfo(result: result)
         } catch CalculatorButtonItem.OperatorError.divisorIsZero {
-            context.resultUpdated?("No number")
+            context.resultUpdated?("No number", 0)
         } catch {
             
         }
@@ -256,16 +249,9 @@ private class SecondOperandState: CalculatorStateProtocol {
     
     private func updateInfo(result: Decimal? = nil) {
         if let result = result {
-            context.resultUpdated?("\(result)")
+            context.resultUpdated?("\(result)", 0)
         } else {
-            var valueString = "\(context.secondOperand!)"
-            if context.fractionDigits != 0, context.secondOperand == 0 {
-                valueString += "."
-                for _ in 1..<context.fractionDigits {
-                    valueString += "0"
-                }
-            }
-            context.resultUpdated?("\(valueString)")
+            context.resultUpdated?("\(context.secondOperand ?? 0)", context.fractionDigits)
         }
         
         context.showProcess(firstOperand: context.firstOperand,

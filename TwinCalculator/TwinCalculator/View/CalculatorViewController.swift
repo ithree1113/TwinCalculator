@@ -99,13 +99,18 @@ class CalculatorViewController: UIViewController {
     
     // MARK: Binding
     private func bindViewModel() {
-        viewModel.resultUpdated = { result in
-            if result.contains(where: { $0 == "." }), result.split(separator: ".").count == 1 {
-                guard let value = Decimal(string: result.replacingOccurrences(of: ".", with: "")) else { return }
-                
-                self.resultLabel.text = value.toString() + "."
-            } else if let value = Decimal(string: result) {
-                self.resultLabel.text = value.toString()
+        viewModel.resultUpdated = { result, fractionDigit in
+            if let value = Decimal(string: result) {
+                switch fractionDigit {
+                case 0:
+                    self.resultLabel.text = value.toString()
+                case 1:
+                    self.resultLabel.text = value.toString() + "."
+                case let digit where digit < 0:
+                    break
+                default:
+                    self.resultLabel.text = value.toString(fractionDigit: fractionDigit - 1)
+                }
             } else {
                 self.resultLabel.text = result
             }
