@@ -10,7 +10,7 @@ import Foundation
 // MARK: - CalculatorViewModelPrortocol
 protocol CalculatorViewModelPrortocol {
     
-    var resultUpdated: ((String, Int) -> Void)? { get set }
+    var valueUpdated: ((Decimal, Int, String?) -> Void)? { get set }
     var processUpdated: ((String) -> Void)? { get set }
     
     func acceptButtonInput(_ input: CalculatorButtonItem)
@@ -22,7 +22,7 @@ protocol CalculatorViewModelPrortocol {
 // MARK: - CalculatorViewModel
 class CalculatorViewModel: CalculatorViewModelPrortocol {
 
-    var resultUpdated: ((String, Int) -> Void)?
+    var valueUpdated: ((Decimal, Int, String?) -> Void)?
     var processUpdated: ((String) -> Void)?
     fileprivate var state: CalculatorState?
     
@@ -92,7 +92,7 @@ private class CalculatorState {
             fractionDigits += 1
         }
 
-        context.resultUpdated?("\(currentOperand!)", fractionDigits)
+        context.valueUpdated?(currentOperand!, fractionDigits, nil)
         showProcess()
     }
 
@@ -105,7 +105,7 @@ private class CalculatorState {
         guard fractionDigits == 0 else { return }
         fractionDigits += 1
 
-        context.resultUpdated?("\(currentOperand!)", fractionDigits)
+        context.valueUpdated?(currentOperand!, fractionDigits, nil)
     }
 
     func handleOperator(_ op: CalculatorButtonItem.Operator) {
@@ -123,10 +123,10 @@ private class CalculatorState {
                 let result = try oprator.calculate(x: previousOperand, y: currentOperand!)
                 let newState = CalculatorState(context: context, previousOperand: result, oprator: op)
                 context.changeState(newState)
-                context.resultUpdated?("\(result)", 0)
+                context.valueUpdated?(result, 0, nil)
                 showProcess(result: result)
             } catch CalculatorButtonItem.OperatorError.divisorIsZero {
-                context.resultUpdated?("Not number", 0)
+                context.valueUpdated?(0, 0, "Not number")
             } catch {
 
             }
@@ -141,7 +141,7 @@ private class CalculatorState {
         fractionDigits = 0
         switch command {
         case .clear:
-            context.resultUpdated?("0", 0)
+            context.valueUpdated?(0, 0, nil)
             context.processUpdated?("0")
             context.changeState(CalculatorState(context: context, previousOperand: 0))
         case .flip:
@@ -158,7 +158,7 @@ private class CalculatorState {
             currentOperand = previousOperand
         }
         currentOperand = -currentOperand!
-        context.resultUpdated?("\(currentOperand!)", 0)
+        context.valueUpdated?(currentOperand!, 0, nil)
         showProcess()
     }
 
@@ -168,7 +168,7 @@ private class CalculatorState {
             currentOperand = previousOperand
         }
         currentOperand! /= 100
-        context.resultUpdated?("\(currentOperand!)", 0)
+        context.valueUpdated?(currentOperand!, 0, nil)
         showProcess()
     }
 
