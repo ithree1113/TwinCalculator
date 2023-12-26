@@ -40,6 +40,9 @@ class CalculatorViewModel: CalculatorViewModelPrortocol {
     
     func setOperand(_ operand: Decimal) {
         state?.currentOperand = operand
+        state?.shouldReplace = true
+        valueUpdated?(operand, 0, nil)
+        state?.showProcess()
     }
     
     fileprivate func changeState(_ state: CalculatorState) {
@@ -59,7 +62,7 @@ private class CalculatorState {
     var currentOperand: Decimal? = nil
     var oprator: CalculatorButtonItem.Operator?
     var fractionDigits: Int = 0
-    var isPercent: Bool = false
+    var shouldReplace: Bool = false
 
     init(context: CalculatorViewModel, previousOperand: Decimal, oprator: CalculatorButtonItem.Operator? = nil) {
         self.context = context
@@ -84,8 +87,8 @@ private class CalculatorState {
 
     func handleDigit(_ digit: Int) {
         let digitDecimal = Decimal(digit)
-        if isPercent {
-            isPercent = false
+        if shouldReplace {
+            shouldReplace = false
             currentOperand = digitDecimal
         } else if fractionDigits == 0 {
             currentOperand = (currentOperand ?? 0) * 10 + digitDecimal
@@ -99,8 +102,8 @@ private class CalculatorState {
     }
 
     func handleDot() {
-        if isPercent || currentOperand == nil {
-            isPercent = false
+        if shouldReplace || currentOperand == nil {
+            shouldReplace = false
             fractionDigits = 0
             currentOperand = 0
         }
@@ -163,7 +166,7 @@ private class CalculatorState {
     }
 
     func handlePercent() {
-        isPercent = true
+        shouldReplace = true
         if currentOperand == nil {
             currentOperand = previousOperand
         }
