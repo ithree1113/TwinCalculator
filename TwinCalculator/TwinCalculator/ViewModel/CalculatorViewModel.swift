@@ -47,6 +47,8 @@ class CalculatorViewModel: CalculatorViewModelPrortocol {
     }
     
     func reset() {
+        valueUpdated?(0, 0, nil)
+        processUpdated?("0")
         changeState(CalculatorState(context: self, previousOperand: 0))
     }
 }
@@ -141,9 +143,7 @@ private class CalculatorState {
         fractionDigits = 0
         switch command {
         case .clear:
-            context.valueUpdated?(0, 0, nil)
-            context.processUpdated?("0")
-            context.changeState(CalculatorState(context: context, previousOperand: 0))
+            context.reset()
         case .flip:
             handleFlip()
         case .percent:
